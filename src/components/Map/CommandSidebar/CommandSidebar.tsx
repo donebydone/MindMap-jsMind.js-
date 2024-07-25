@@ -23,13 +23,17 @@ const CommandSidebar: React.FC = () => {
     nodes: any,
     index: number
   ) => {
-    if (
-      CommandType === "Node type" ||
-      CommandType === "Edit Node" ||
-      CommandType === ""
-    ) {
+    if (CommandType === "Node type" || CommandType === "") {
       message.error({
         content: "Select Command Type",
+      });
+      event.preventDefault();
+      return;
+    }
+
+    if (CommandType === "Edit Node") {
+      message.error({
+        content: "This is edit command",
       });
       event.preventDefault();
       return;
@@ -63,8 +67,8 @@ const CommandSidebar: React.FC = () => {
     event.preventDefault();
     setContextMenu({
       visible: true,
-      x: event.clientX,
-      y: event.clientY,
+      x: event.pageX,
+      y: event.pageY,
       command: item,
       index: index,
     });

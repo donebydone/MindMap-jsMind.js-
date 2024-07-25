@@ -223,10 +223,13 @@ const MindMap = () => {
     const selectedNode = jmRef.current?.get_selected_node();
     if (!selectedNode) return;
 
+    console.log(event);
+
+
     setContextMenu({
       visible: true,
-      x: event.clientX + 5,
-      y: event.clientY + 5,
+      x: event.pageX + 5,
+      y: event.pageY + 5,
     });
   };
 
@@ -420,6 +423,7 @@ const MindMap = () => {
         message.error({
           content: "Please select node.",
         });
+        setIsShortcutPress(false);
         return;
       }
       if (event.altKey && event.key) {
@@ -445,6 +449,8 @@ const MindMap = () => {
     } else {
       return;
     }
+
+    setIsShortcutPress(false);
   };
 
   useEffect(() => {
@@ -560,8 +566,8 @@ const MindMap = () => {
             setEditModalVisible(false);
           }}
           onClick={(e) => {
-            e.stopPropagation();
             setIsShortcutPress(false);
+            e.stopPropagation();
           }}
           onChange={(e) => {
             setEditedContent(e.target.value);
