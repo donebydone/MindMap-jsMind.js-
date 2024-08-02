@@ -7,8 +7,7 @@ import React, {
 import { Button, Input, Select, Checkbox, message } from "antd";
 import type { CheckboxProps } from "antd";
 import { FullscreenOutlined } from "@ant-design/icons";
-import useMindMapStore, { configuration } from "@/stores/mapStore";
-import axios from "axios";
+import useMindMapStore from "@/stores/mapStore";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -21,6 +20,7 @@ import {
   content,
   defaultContentCheckedList,
 } from "@/utils/data";
+import { configuration } from "@/utils/type";
 
 interface CommandProps {
   id: number;
@@ -298,6 +298,7 @@ export default function Command({
                   setCommandShortcut(e.target.value);
                   setIsClient(true);
                   handleOnChange(e);
+                  setIsKeypress(true);
                 }}
               />
             </div>

@@ -3,9 +3,9 @@ import { Button, Input, notification } from "antd";
 import Command from "./Command/Command";
 import useMindMapStore from "@/stores/mapStore";
 import { useEffect, useState } from "react";
-import { Commands } from "@/stores/mapStore";
 import { Reorder } from "framer-motion";
 import axios from "axios";
+import { Commands } from "@/utils/type";
 
 export default function CommandsGroup() {
   const [openAIKey, setOpenAIKey] = useState<string>("");
@@ -26,7 +26,6 @@ export default function CommandsGroup() {
     saveCommandReorder,
     getDefaultThreadId,
     getOpenAIKey,
-    getDefaultAssistantId,
   } = useMindMapStore();
 
   const deleteComponent = (index: number) => {
@@ -131,7 +130,7 @@ export default function CommandsGroup() {
 
   const handleAddCommand = () => {
     addCommand();
-    const newCommandIndex = commands.length; // The new command will be the last one in the array
+    const newCommandIndex = commands.length;
     setEditingCommandId(newCommandIndex);
     setEdit(false);
     setIsClient(true);
