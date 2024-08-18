@@ -230,8 +230,8 @@ const MindMap = () => {
 
     setContextMenu({
       visible: true,
-      x: event.clientX + 5,
-      y: event.clientY + 5,
+      x: event.pageX + 5,
+      y: event.pageY + 5,
     });
   };
 
@@ -252,6 +252,7 @@ const MindMap = () => {
 
     setCurrentNode(selectedNode);
     setEditedContent(selectedNode.topic);
+    setIsShortcutPress(false);
     setEditModalVisible(true);
   };
 
@@ -380,6 +381,7 @@ const MindMap = () => {
         message: "Command is stopped",
       });
     } else {
+      setIsShortcutPress(false);
       setShowLoading(false);
     }
   };
@@ -388,18 +390,23 @@ const MindMap = () => {
     const handleThreadIdUpdate = (event: Event) => {
       const customEvent = event as CustomEvent;
       const { errorStatus } = customEvent.detail;
-
       if (errorStatus === 401) {
         notification.error({
           message: "Invalid OpenAI API key",
         });
         setShowLoading(false);
-      } else if (errorStatus === 400) {
+      } else if (errorStatus === 402) {
         notification.error({
           message: "OpenAI API key is required",
         });
         setShowLoading(false);
+      } else if (errorStatus === 400) {
+        notification.error({
+          message: "Thread Id is required",
+        });
+        setShowLoading(false);
       }
+      setIsShortcutPress(false);
     };
 
     window.addEventListener(
@@ -426,7 +433,6 @@ const MindMap = () => {
         message.error({
           content: "Please select node.",
         });
-        setIsShortcutPress(false);
         return;
       }
       if (event.altKey && event.key) {
@@ -443,9 +449,15 @@ const MindMap = () => {
 
     const command = getCommandByShortcut(newShortcut);
 
-    console.log(command);
-
     if (command) {
+      console.log(command.command.commandShortcut);
+    }
+
+    if (
+      command &&
+      command.command.commandShortcut != "" &&
+      command.command.commandShortcut
+    ) {
       handleExecuteCommand(
         command.command.select,
         command.command.commandName,
