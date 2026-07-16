@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"src\\\\app\\\\Main.tsx -> @/components/Map/MindMap\":{\"id\":\"src\\\\app\\\\Main.tsx -> @/components/Map/MindMap\",\"files\":[\"static/css/_app-pages-browser_src_components_Map_MindMap_tsx.css\",\"static/chunks/_app-pages-browser_src_components_Map_MindMap_tsx.js\"]}}"
